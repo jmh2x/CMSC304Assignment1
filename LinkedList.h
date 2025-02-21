@@ -4,6 +4,7 @@
 #include "Givens.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 struct Node* createNode(char* data);
 struct Node* createList(FILE* inf);
 struct Node* removeNode(struct Node** head, int index);

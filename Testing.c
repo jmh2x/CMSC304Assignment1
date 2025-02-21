@@ -19,7 +19,6 @@ int main(){
 
     //Test your linked list functions here!!!
     
-    
     fclose(infile);
 
 }

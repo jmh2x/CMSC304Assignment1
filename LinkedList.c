@@ -1,20 +1,13 @@
 #include "LinkedList.h"
 
 struct Node* createNode(char* data)
-{   struct Node* newNode = NULL;
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); //allocating mem for new node
-    if (newNode == NULL)
-    {
+{   struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); // allocating memory for new node
+    if (newNode == NULL) {
         return NULL;
     }
-   /* else{
-    newNode->data = data;
-    newNode->next = NULL;
-    
-      return newNode;
-    }*/
     newNode->data = (char*)malloc(strlen(data) + 1);
     if (newNode->data == NULL) {
+        free(newNode); // Free the allocated node if data allocation fails
         return NULL;
     }
     strcpy(newNode->data, data);
@@ -94,7 +87,7 @@ void traverse(struct Node* head){ //good
     struct Node* current = head;
     while (current != NULL) {
         current = current->next;
-        printf("%d\n", current->data);
+        printf("%s\n", current->data);
     }
 }
 
