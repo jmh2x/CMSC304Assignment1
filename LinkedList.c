@@ -2,93 +2,119 @@
 
 
 
-struct Node* createNode(char* data)
-{   struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    if (!newNode) return NULL; // Check memory allocation
-    
-    newNode->data = (char*)malloc(strlen(data) + 1); // Allocate memory for string
-    if (!newNode->data) {
-        free(newNode);
+struct Node* createNode(char* data) //createNode function defined
+{   
+    //allocating node
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+        if(newNode == NULL){
+            return NULL;
+        }
+    //allocating data
+    newNode->data = (char* data)malloc(strlen(data) + 1);
+    if(newNode->data == NULL){
         return NULL;
     }
-    strcpy(newNode->data, data); // Copy string
+    //copying into data
+    strcpy(newNode->data,data);
+    //initialize next to NULL
     newNode->next = NULL;
     return newNode;
+    
 }
 
 
-void insertAtEnd(struct Node** head, struct Node* newNode){
-    if (!newNode) return;
-    
-    if (*head == NULL) {
+void insertAtEnd(struct Node** head, struct Node* newNode){ //InsertAtEnd function defined
+    if(*head ==NULL){ //empty list, newNode as head
         *head = newNode;
         return;
     }
-    struct Node* current = *head;
-    while (current->next != NULL) {
-        current = current->next;
+    
+    if(head == NULL){ //if head is NULl return
+        return;
     }
-    current->next = newNode;
+    if(newNode ==NULL){ // if newNode is NULL return
+        return;
+    }
+    struct Node* start =*head; //start from head
+    while(start->next != NULL){ // traverse to end
+        start = start->next;
+    }
+    start->next=newNode; // append newNode at end
 }
 
 
-struct Node* createList(FILE* inf) 
+struct Node* createList(FILE* inf) //createList function defined
 {
-    if (!inf) return NULL;
+    if (!inf){ 
+    return NULL; //NULL file pointer returns NULL
+    } 
+
     struct Node* head = NULL;
     char fileLine[MAX_LINE_SIZE];
+
     while (fgets(fileLine, sizeof(fileLine), inf)) {
         fileLine[strcspn(fileLine, "\n")] = '\0'; // Remove newline
-        struct Node* newNode = createNode(fileLine);
-        insertAtEnd(&head, newNode);
+        
+        struct Node* newNode = createNode(fileLine); //creates new node for each line in file
+        insertAtEnd(&head, newNode); // links created node to list
     }
-    return head;
+    return head; // return head of linked list
 }
 
-struct Node* removeNode(struct Node** head, int index) //needs work
+struct Node* removeNode(struct Node** head, int index) //removeNode defined
  {
-    if (!head || !(*head) || index < 0) return NULL;
-    struct Node* temp = *head;
+    if(head == NULL){ //head is null
+        return NULL;
+    }
+    if(*head == NULL){ // head points to null
+        reutrn NULL;
+    }
+    if(index < 0){ // index less than 0
+        return NULL;
+    }
+    struct Node* start = *head; 
     struct Node* prev = NULL;
-    
-    if (index == 0) { // Remove head
-        *head = temp->next;
-        return temp;
+
+    if(index == 0){ // removing head node
+        *head = start->next; //head = next node
+        return start; // return removed
     }
-    
-    for (int i = 0; temp != NULL && i < index; i++) {
-        prev = temp;
-        temp = temp->next;
+    //traverse to index
+    for(i = 0; start != NULL && i < index; i++){
+        prev = start;
+        start = start->next
     }
-    
-    if (!temp) return NULL; // Index out of bounds
-    prev->next = temp->next;
-    return temp;
+    if(!start){ //index out of bounds
+        return NULL;
+    }
+
+    prev->next = start->next;
+
+    return start;
 }
 
-void traverse(struct Node* head){ //good
-    struct Node* current = head;
-    while (current != NULL) {
-        printf("%s\n", current->data);
-        current = current->next;
+void traverse(struct Node* head){ //traverse function defined
+    struct Node* start = head;
+    while (start != NULL) {
+        printf("%s\n", start->data);
+        start = start->next;
     }
 }
 
-void freeNode(struct Node* aNode){ //good
-    if (aNode) {
-        free(aNode->data);
-        free(aNode);
-    }
+void freeNode(struct Node* aNode){ //freeNode function defined
+   if(aNode != NULL){
+    free(aNode);
+   }
     
 }
 
-void freeList(struct Node** head){ //good
-    struct Node* current = *head;
-    struct Node* nextNode;
-    while (current != NULL) {
-        nextNode = current->next;
-        freeNode(current);
-        current = nextNode;
+void freeList(struct Node** head){ //freeList function defined
+    struct Node* start;
+
+    while (*head != NULL) {
+        start = *head;
+        *head = head->next;
+        free(start);
     }
-    *head = NULL;
+
 }

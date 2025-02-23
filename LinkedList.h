@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//functions declared for LinkedList.c
 struct Node* createNode(char* data);
 struct Node* createList(FILE* inf);
 struct Node* removeNode(struct Node** head, int index);
