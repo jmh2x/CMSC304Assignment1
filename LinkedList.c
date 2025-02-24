@@ -106,8 +106,9 @@ void traverse(struct Node* head){ //traverse function defined
 
 void freeNode(struct Node* aNode){ //freeNode function defined
    if(aNode != NULL){
+   
+    free(aNode->data); //free data 
     free(aNode); //free node
-    free(aNode->data); //free data
    }
     
 }
@@ -118,8 +119,9 @@ void freeList(struct Node** head){ //freeList function defined
     while (*head != NULL) { //traverse list
         start = *head;
         *head = (*head)->next;
-        free(start); // free node
+        
         free(start->data); // free data
+        free(start); // free node
     }
 
 }
