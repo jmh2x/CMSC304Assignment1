@@ -10,7 +10,7 @@ struct Node* createNode(char* data) //createNode function defined
             return NULL;
         }
     //allocating data
-    newNode->data = (char* data)malloc(strlen(data) + 1);
+    newNode->data = (char*)malloc(strlen(data) + 1);
     if(newNode->data == NULL){
         return NULL;
     }
@@ -67,7 +67,7 @@ struct Node* removeNode(struct Node** head, int index) //removeNode defined
         return NULL;
     }
     if(*head == NULL){ // head points to null
-        reutrn NULL;
+        return NULL;
     }
     if(index < 0){ // index less than 0
         return NULL;
@@ -80,10 +80,12 @@ struct Node* removeNode(struct Node** head, int index) //removeNode defined
         return start; // return removed
     }
     //traverse to index
+    int i;
     for(i = 0; start != NULL && i < index; i++){
         prev = start;
-        start = start->next
+        start = start->next;
     }
+
     if(!start){ //index out of bounds
         return NULL;
     }
@@ -113,7 +115,7 @@ void freeList(struct Node** head){ //freeList function defined
 
     while (*head != NULL) {
         start = *head;
-        *head = head->next;
+        *head = (*head)->next;
         free(start);
     }
 
