@@ -1,3 +1,4 @@
+//Govan Henry CMSC304  Assignment 4  2/24/2025
 #include "LinkedList.h"
 
 
@@ -105,7 +106,8 @@ void traverse(struct Node* head){ //traverse function defined
 
 void freeNode(struct Node* aNode){ //freeNode function defined
    if(aNode != NULL){
-    free(aNode);
+    free(aNode); //free node
+    free(aNode->data); //free data
    }
     
 }
@@ -113,10 +115,11 @@ void freeNode(struct Node* aNode){ //freeNode function defined
 void freeList(struct Node** head){ //freeList function defined
     struct Node* start;
 
-    while (*head != NULL) {
+    while (*head != NULL) { //traverse list
         start = *head;
         *head = (*head)->next;
-        free(start);
+        free(start); // free node
+        free(start->data); // free data
     }
 
 }
