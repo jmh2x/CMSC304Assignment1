@@ -15,7 +15,7 @@ struct Node* createNode(char* data) //createNode function defined
     if(newNode->data == NULL){
         return NULL;
     }
-    //copying into data
+    //copying data
     strcpy(newNode->data,data);
     //initialize next to NULL
     newNode->next = NULL;
@@ -78,7 +78,7 @@ struct Node* removeNode(struct Node** head, int index) //removeNode defined
 
     if(index == 0){ // removing head node
         *head = start->next; //head = next node
-        return start; // return removed
+        return start; 
     }
     //traverse to index
     int i;
@@ -91,7 +91,7 @@ struct Node* removeNode(struct Node** head, int index) //removeNode defined
         return NULL;
     }
 
-    prev->next = start->next;
+    prev->next = start->next; //remove node
 
     return start;
 }
@@ -99,7 +99,7 @@ struct Node* removeNode(struct Node** head, int index) //removeNode defined
 void traverse(struct Node* head){ //traverse function defined
     struct Node* start = head;
     while (start != NULL) {
-        printf("%s\n", start->data);
+        printf("%s\n", start->data); //print node data
         start = start->next;
     }
 }
@@ -118,7 +118,7 @@ void freeList(struct Node** head){ //freeList function defined
 
     while (*head != NULL) { //traverse list
         start = *head;
-        *head = (*head)->next;
+        *head = (*head)->next; //move head to thee next node
         
         free(start->data); // free data
         free(start); // free node
